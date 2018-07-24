@@ -1,4 +1,4 @@
-FROM 7-fpm
+FROM 7.2.8-fpm
 
 MAINTAINER skazochnik2007
 
