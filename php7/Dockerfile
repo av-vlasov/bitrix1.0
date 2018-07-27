@@ -1,4 +1,4 @@
-FROM 7.2.8-fpm
+FROM bitrixdock/php71-fpm:latest
 
 MAINTAINER skazochnik2007
 
