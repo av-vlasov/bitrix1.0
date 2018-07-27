@@ -81,6 +81,7 @@ RUN { \
 		| xargs -rt -0 sed -Ei 's/^(bind-address|log)/#&/' \
 # don't reverse lookup hostnames, they are usually another container
 	&& echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf
+RUN apt-get -y install percona-xtradb-cluster-server-5.7
 
 VOLUME ["/var/lib/mysql", "/var/log/mysql"]
 
@@ -89,4 +90,6 @@ RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 3306
+EXPOSE 3400
+EXPOSE 3500
 CMD ["mysqld"]
