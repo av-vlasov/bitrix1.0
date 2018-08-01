@@ -55,6 +55,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		apt-transport-https ca-certificates \
 		pwgen \
 		tzdata \
+        rsync \
 	&& rm -rf /var/lib/apt/lists/*
 
 ENV GPG_KEYS \
@@ -116,6 +117,7 @@ RUN set -ex; \
 # percona-xtrabackup/mariadb-backup is installed at the same time so that `mysql-common` is only installed once from just mariadb repos
 		$backupPackage \
 		socat \
+        galera \
 	; \
 	rm -rf /var/lib/apt/lists/*; \
 # comment out any "user" entires in the MySQL config ("docker-entrypoint.sh" or "--user" will handle user switching)
@@ -138,6 +140,8 @@ VOLUME /var/lib/mysql
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN ln -s usr/local/bin/docker-entrypoint.sh / # backwards compat
 ENTRYPOINT ["docker-entrypoint.sh"]
+
+ADD my.cnf /etc/mysql/conf.d/my.cnf
 
 EXPOSE 3306
 CMD ["mysqld"]
